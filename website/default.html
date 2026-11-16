@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merhaba!</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e1b4b, #312e81);
+            color: white;
+        }
+
+        .container {
+            text-align: center;
+            padding: 60px 80px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: appear 1s ease;
+        }
+
+        .icon {
+            font-size: 55px;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-size: 55px;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #a5b4fc, #67e8f9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            color: #cbd5e1;
+            font-size: 17px;
+            letter-spacing: 0.5px;
+        }
+
+        .line {
+            width: 60px;
+            height: 4px;
+            background: #818cf8;
+            border-radius: 10px;
+            margin: 25px auto;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media(max-width: 600px) {
+            .container {
+                padding: 45px 30px;
+                margin: 20px;
+            }
+
+            h1 {
+                font-size: 40px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="icon">👋</div>
+        <h1>Merhaba!</h1>
+        <div class="line"></div>
+        <p>Sunucu çalışıyor!</p>
+    </div>
+</body>
+</html>

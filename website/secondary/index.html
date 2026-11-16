@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Request Viewer</title>
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    padding: 35px;
+    background: #0b1120;
+    color: #e2e8f0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+}
+
+h1 { margin-bottom: 8px; }
+
+.subtitle {
+    color: #94a3b8;
+    margin-bottom: 30px;
+}
+
+.card {
+    background: #151f30;
+    border: 1px solid #263449;
+    border-radius: 12px;
+    padding: 22px;
+    margin-bottom: 18px;
+}
+
+.label {
+    color: #94a3b8;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.method {
+    display: inline-block;
+    background: #064e3b;
+    color: #4ade80;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.url {
+    font-size: 18px;
+    word-break: break-all;
+    margin-top: 15px;
+}
+
+pre {
+    background: #0b1120;
+    border-radius: 8px;
+    padding: 16px;
+    overflow-x: auto;
+    color: #a5f3fc;
+    font-size: 13px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+@media(max-width:650px) {
+    body { padding: 18px; }
+    .grid { grid-template-columns: 1fr; }
+}
+
+.footer {
+    color: #64748b;
+    text-align: center;
+    font-size: 12px;
+    margin-top: 30px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>🌐 Request Viewer</h1>
+    <div class="subtitle">Gelen HTTP isteğinin detayları</div>
+
+    <div class="card">
+        <div class="label">Request Method</div>
+        <span class="method" id="method">GET</span>
+
+        <div class="label" style="margin-top:20px">Request URL</div>
+        <div class="url" id="url">/</div>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <div class="label">Query Parameters</div>
+            <pre id="query">Yükleniyor...</pre>
+        </div>
+
+        <div class="card">
+            <div class="label">Client Information</div>
+            <pre id="client">Yükleniyor...</pre>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="label">Request Headers</div>
+        <pre id="headers">Yükleniyor...</pre>
+    </div>
+
+    <div class="card">
+        <div class="label">Request Body</div>
+        <pre id="body">Request body bulunmuyor.</pre>
+    </div>
+
+    <div class="footer">
+        HTTP Request Inspector
+    </div>
+
+</div>
+
+<script>
+const data = {
+    method: "GET",
+    url: window.location.href,
+    query: Object.fromEntries(
+        new URLSearchParams(window.location.search)
+    ),
+    client: {
+        userAgent: navigator.userAgent,
+        platform: navigator.platform,
+        language: navigator.language,
+        currentTime: new Date().toLocaleString("tr-TR")
+    },
+    headers: {
+        "Browser": navigator.userAgent,
+        "Accept-Language": navigator.language
+    },
+    body: null
+};
+
+document.getElementById("method").textContent = data.method;
+document.getElementById("url").textContent = data.url;
+document.getElementById("query").textContent =
+    JSON.stringify(data.query, null, 2);
+document.getElementById("client").textContent =
+    JSON.stringify(data.client, null, 2);
+document.getElementById("headers").textContent =
+    JSON.stringify(data.headers, null, 2);
+document.getElementById("body").textContent =
+    data.body ? JSON.stringify(data.body, null, 2) :
+    "Request body bulunmuyor.";
+
+</script>
+
+</body>
+</html>
