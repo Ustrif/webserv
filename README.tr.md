@@ -97,7 +97,21 @@ Ana sunucunun location tanımları:
 
 Ana sunucunun istek gövdesi limiti 10 MiB'dir. API ve ikincil sunucuların
 limitleri sırasıyla 4 MiB ve 1 MiB'dir. Ana ve ikincil sunucular yalnızca
-`127.0.0.1` üzerinde dinler; diğer ağ arayüzlerine açık değildir.
+Kaynak yapılandırma yukarıdaki gibi loopback adreslerine bağlanır. Docker imajı
+yapılandırmanın konteyner için bind adreslerini `0.0.0.0` olarak değiştiren
+ayrı bir kopyasını oluşturur; böylece yayınlanan portlara erişilebilir.
+
+## Docker
+
+İmajı derleyin ve yapılandırmadaki iki dinleyiciyi yayınlayın:
+
+```bash
+docker build -t webserv .
+docker run --rm -p 8080:8080 -p 9090:9090 webserv
+```
+
+Sunucuya `http://127.0.0.1:8080/` ve `http://127.0.0.1:9090/`
+adreslerinden erişilebilir.
 
 Bir location için yapılandırılan `root`, location önekini değiştirir. Örneğin
 `/autoindex/file1.txt`, `./website/autoindex/file1.txt` dosyasına; ve

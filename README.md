@@ -93,8 +93,21 @@ The main server contains the following locations:
 | `/redirect-301` | GET | Redirects to `/` with HTTP 301 |
 
 The main server has a 10 MiB request-body limit. The API and secondary hosts
-have limits of 4 MiB and 1 MiB respectively. The main and secondary servers
-listen only on `127.0.0.1`; they are not exposed on other interfaces.
+have limits of 4 MiB and 1 MiB respectively. The source configuration listens on loopback addresses as documented above.
+The Docker image creates a container-only copy that replaces these bind
+addresses with `0.0.0.0`, so published ports remain reachable.
+
+## Docker
+
+Build the image and publish both configured listeners:
+
+```bash
+docker build -t webserv .
+docker run --rm -p 8080:8080 -p 9090:9090 webserv
+```
+
+The server is then available at `http://127.0.0.1:8080/` and
+`http://127.0.0.1:9090/`.
 
 For a location, the configured `root` replaces the location prefix. For
 example, `/autoindex/file1.txt` maps to
